@@ -1,5 +1,6 @@
 package com.fink.bookstore.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,5 +19,9 @@ public class CategoriaService {
 	public Categoria findById(Integer id) {
 		Optional<Categoria> categoria = categoriaRepository.findById(id);
 		return categoria.orElseThrow(() -> new ObjectNotFoundException("Categoria não encontrada! id: " + id));
+	}
+	
+	public List<Categoria> findAll() {
+		return categoriaRepository.findAll();
 	}
 }
