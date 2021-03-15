@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.fink.bookstore.domain.Categoria;
 import com.fink.bookstore.repositories.CategoriaRepository;
+import com.fink.bookstore.service.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
@@ -16,6 +17,6 @@ public class CategoriaService {
 	
 	public Categoria findById(Integer id) {
 		Optional<Categoria> categoria = categoriaRepository.findById(id);
-		return categoria.orElse(null);
+		return categoria.orElseThrow(() -> new ObjectNotFoundException("Categoria não encontrada! id: " + id));
 	}
 }
