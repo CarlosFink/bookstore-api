@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.fink.bookstore.domain.Categoria;
 import com.fink.bookstore.dtos.CategoriaDTO;
 import com.fink.bookstore.repositories.CategoriaRepository;
+import com.fink.bookstore.service.exceptions.DataIntegrityViolationExcept;
 import com.fink.bookstore.service.exceptions.ObjectNotFoundException;
 
 @Service
@@ -40,6 +42,10 @@ public class CategoriaService {
 
 	public void delete(Integer id) {
 		findById(id);
-		categoriaRepository.deleteById(id);
+		try {
+			categoriaRepository.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityViolationExcept("Categoria não pode ser excluída, possui livros associados!");
+		}		
 	}
 }
