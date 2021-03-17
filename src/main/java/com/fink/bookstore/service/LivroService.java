@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.fink.bookstore.domain.Categoria;
 import com.fink.bookstore.domain.Livro;
-import com.fink.bookstore.dtos.LivroDTO;
 import com.fink.bookstore.repositories.LivroRepository;
 import com.fink.bookstore.service.exceptions.ObjectNotFoundException;
 
@@ -49,7 +48,5 @@ public class LivroService {
 	public void delete(Integer id) {
 		findById(id);
 		livroRepository.deleteById(id);
-	}
-
-	
+	}	
 }

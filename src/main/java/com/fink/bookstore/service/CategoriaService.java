@@ -8,7 +8,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.fink.bookstore.domain.Categoria;
-import com.fink.bookstore.dtos.CategoriaDTO;
 import com.fink.bookstore.repositories.CategoriaRepository;
 import com.fink.bookstore.service.exceptions.DataIntegrityViolationExcept;
 import com.fink.bookstore.service.exceptions.ObjectNotFoundException;
@@ -33,11 +32,11 @@ public class CategoriaService {
 		return categoriaRepository.save(categoria);
 	}
 	
-	public Categoria update(Integer id, CategoriaDTO categoriaDTO) {
-		Categoria categoria = findById(id);
-		categoria.setNome(categoriaDTO.getNome());
-		categoria.setDescricao(categoriaDTO.getDescricao());
-		return categoriaRepository.save(categoria);
+	public Categoria update(Integer id, Categoria categoria) {
+		Categoria newCategoria = findById(id);
+		newCategoria.setNome(categoria.getNome());
+		newCategoria.setDescricao(categoria.getDescricao());
+		return categoriaRepository.save(newCategoria);
 	}
 
 	public void delete(Integer id) {
