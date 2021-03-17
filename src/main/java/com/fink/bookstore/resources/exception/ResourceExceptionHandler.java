@@ -21,17 +21,18 @@ public class ResourceExceptionHandler {
 				e.getMessage());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 	}
-	
+
 	@ExceptionHandler(DataIntegrityViolationExcept.class)
-	public ResponseEntity<StandardError> dataIntegrityViolationException(DataIntegrityViolationExcept e, ServletRequest request) {
+	public ResponseEntity<StandardError> dataIntegrityViolationException(DataIntegrityViolationExcept e,
+			ServletRequest request) {
 		StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
 				e.getMessage());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 	}
-	
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<StandardError> validationError(MethodArgumentNotValidException e, ServletRequest request) {
-		ValidationError error = new ValidationError(System.currentTimeMillis(),HttpStatus.BAD_REQUEST.value(),
+		ValidationError error = new ValidationError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
 				"Erro de Validação de campos");
 		for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
 			error.addErros(fieldError.getField(), fieldError.getDefaultMessage());
